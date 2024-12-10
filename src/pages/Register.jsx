@@ -19,7 +19,12 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${API_URL}/register`, formData);
+      const response = await axios.post(`${API_URL}/register`, formData, {
+        headers: {
+          "Content-Type": "application/json", // Set content type to JSON
+        },
+        withCredentials: true, // Add this if you need to send credentials (cookies)
+      });
 
       console.log(response);
 
@@ -27,6 +32,7 @@ function Register() {
       navigate("/login");
     } catch (error) {
       alert("Registration failed: " + error.response?.data?.message);
+      console.error(error);
     }
   };
 
